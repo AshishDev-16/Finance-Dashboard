@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Delete Transaction</h5>
+                <p>Are you sure you want to delete this transaction?</p>
+                <p><strong>Description:</strong> {{ transaction.description }}</p>
+                <p><strong>Amount:</strong> ${{ transaction.amount }}</p>
+                <p><strong>Date:</strong> {{ transaction.date }}</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                        <a href="{% url 'transaction_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

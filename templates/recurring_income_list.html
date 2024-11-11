@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+            Recurring Income
+            <a href="{% url 'recurring_income_add' %}" class="btn btn-primary">Add Recurring Income</a>
+        </h5>
+        
+        <div class="table-responsive mt-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Day of Month</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes %}
+                    <tr>
+                        <td>{{ income.name }}</td>
+                        <td>${{ income.amount }}</td>
+                        <td>{{ income.category.name }}</td>
+                        <td>{{ income.day_of_month }}</td>
+                        <td>
+                            <span class="badge {% if income.is_active %}bg-success{% else %}bg-secondary{% endif %}">
+                                {% if income.is_active %}Active{% else %}Inactive{% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'recurring_income_edit' income.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <form action="{% url 'recurring_income_delete' income.pk %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                        onclick="return confirm('Are you sure you want to delete this recurring income?')">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No recurring income found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 

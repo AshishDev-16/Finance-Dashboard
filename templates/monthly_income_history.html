@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between align-items-center">
+            Monthly Income History
+            <a href="{% url 'set_monthly_income' %}" class="btn btn-primary">Set Current Month's Income</a>
+        </h5>
+        
+        <div class="table-responsive mt-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes %}
+                    <tr>
+                        <td>{{ income.get_month_display }}</td>
+                        <td>${{ income.amount }}</td>
+                        <td>{{ income.description }}</td>
+                        <td>
+                            <a href="{% url 'set_monthly_income' %}?month={{ income.month|date:'Y-m-d' }}" 
+                               class="btn btn-sm btn-outline-primary">Edit</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No income records found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %} 
