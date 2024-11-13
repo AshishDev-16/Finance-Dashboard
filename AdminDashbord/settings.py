@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'myapp.middleware.AuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'AdminDashbord.urls'
@@ -137,5 +138,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Add these settings at the bottom of the file
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login'
-LOGOUT_REDIRECT_URL = '/login'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/login/'

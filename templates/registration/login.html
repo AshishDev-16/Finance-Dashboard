@@ -1,27 +1,195 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title text-center mb-4">Login</h2>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" required>
+<div class="login-container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-5">
+            <div class="login-card">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-shield-lock-fill login-icon"></i>
+                        <h2 class="login-title">Welcome Back</h2>
+                        <p class="text-muted">Enter your credentials to continue</p>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </div>
-                </form>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} fade show">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" class="login-form">
+                        {% csrf_token %}
+                        <div class="form-floating mb-4">
+                            <input type="text" name="username" class="form-control login-input" id="username" placeholder="Username" required>
+                            <label for="username">
+                                <i class="bi bi-person-fill"></i> Username
+                            </label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" name="password" class="form-control login-input" id="password" placeholder="Password" required>
+                            <label for="password">
+                                <i class="bi bi-key-fill"></i> Password
+                            </label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-login">
+                                <span>Login</span>
+                                <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        min-height: 100vh;
+        color: #fff;
+    }
+
+    .login-container {
+        min-height: 100vh;
+        backdrop-filter: blur(10px);
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-icon {
+        font-size: 3rem;
+        color: #00f2fe;
+        margin-bottom: 1rem;
+    }
+
+    .login-title {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(45deg, #00f2fe, #4facfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .login-form .form-floating {
+        position: relative;
+    }
+
+    .login-input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-radius: 10px;
+        height: 55px;
+        padding-left: 45px;
+        transition: all 0.3s ease;
+    }
+
+    .login-input:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #00f2fe;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        color: #fff;
+    }
+
+    .form-floating label {
+        color: rgba(255, 255, 255, 0.7);
+        padding-left: 45px;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        color: #00f2fe;
+        padding-left: 15px;
+    }
+
+    .form-floating .bi {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.5);
+        z-index: 3;
+    }
+
+    .btn-login {
+        background: linear-gradient(45deg, #00f2fe, #4facfe);
+        border: none;
+        color: #fff;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+    }
+
+    .btn-login::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .btn-login:hover::before {
+        left: 100%;
+    }
+
+    .alert {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        backdrop-filter: blur(5px);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .login-card {
+        animation: fadeIn 0.6s ease-out;
+    }
+</style>
 {% endblock %} 

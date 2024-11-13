@@ -7,6 +7,7 @@ from .models import MonthlyIncome, Transaction, Category, SavingsGoal
 from .forms import MonthlyIncomeForm, ExpenseForm, SavingsGoalForm
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
+from django.contrib.auth import views as auth_views
 
 # Add this at the top with other imports
 DEFAULT_CATEGORIES = [
@@ -300,4 +301,3 @@ def update_savings_progress(request, pk):
             messages.error(request, 'Invalid amount')
     return redirect('savings_list')
   
-
