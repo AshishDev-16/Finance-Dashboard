@@ -63,3 +63,8 @@ A modern, feature-rich personal finance management system built with Django that
 ## Installation 🚀
 
 1. Clone the repository 
+
+## Demo Credentials and Website URL
+Username: admin
+Password: admin123
+Live: https://finance-dashboard-s4pv.onrender.com/login/
