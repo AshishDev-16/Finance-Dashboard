@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-hn$z)b__fb3j1_&^_+f6kt*n%_a7x!wk45%!1*io$vj1=^+avj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'finance-dashboard-s4pv.onrender.com' ]
 
 
 # Application definition
