@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-hn$z)b__fb3j1_&^_+f6kt*n%_a7x!wk45%!1*io$vj1=^+avj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'finance-dashboard-s4pv.onrender.com' ]
+ALLOWED_HOSTS = [ 'finance-dashboard-s4pv.onrender.com', 'localhost', '127.0.0.1' ]
 
 
 # Application definition
@@ -93,6 +93,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -140,3 +143,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+# Add this new setting for signup redirect
+SIGNUP_REDIRECT_URL = '/login/'
+
+# Email settings (for password reset functionality)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

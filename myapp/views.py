@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.db.models import Sum
 from django.utils import timezone
 from .models import MonthlyIncome, Transaction, Category, SavingsGoal
-from .forms import MonthlyIncomeForm, ExpenseForm, SavingsGoalForm
+from .forms import MonthlyIncomeForm, ExpenseForm, SavingsGoalForm, SignUpForm
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from django.contrib.auth import views as auth_views
+from django.contrib.auth import login
 
 # Add this at the top with other imports
 DEFAULT_CATEGORIES = [
@@ -300,4 +301,21 @@ def update_savings_progress(request, pk):
         except (ValueError, InvalidOperation):
             messages.error(request, 'Invalid amount')
     return redirect('savings_list')
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+        
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully! Please login to continue.')
+            return redirect('login')
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
   

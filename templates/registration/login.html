@@ -42,6 +42,13 @@
                             </button>
                         </div>
                     </form>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted mb-0">Don't have an account?</p>
+                        <a href="{% url 'signup' %}" class="btn btn-outline-light btn-register mt-2">
+                            <i class="bi bi-person-plus-fill me-2"></i>Sign Up Here
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,6 +94,7 @@
         margin-bottom: 0.5rem;
         background: linear-gradient(45deg, #00f2fe, #4facfe);
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 

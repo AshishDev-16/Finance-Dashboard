@@ -11,6 +11,7 @@ class AuthenticationMiddleware:
         public_urls = [
             reverse('login'),
             reverse('logout'),
+            reverse('signup'),
             '/admin/login/',
             '/admin/',
         ]
